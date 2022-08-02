@@ -1,17 +1,13 @@
+import torch
 import tensorflow as tf
-
-
-class Tensor:
-    def __int__(self):
-        pass
-
-    def ten(self):
-        pass
-
+from tensorflow.python.client import device_lib
 
 if __name__ == '__main__':
-    tf.debugging.set_log_device_placement(True)
-    a = tf.constant([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
-    b = tf.constant([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]])
-    c = tf.matmul(a, b)
-    print(c)
+    print(device_lib.list_local_devices())
+    tf.config.list_physical_devices('GPU')
+
+    USE_CUDA = torch.cuda.is_available()
+    print(USE_CUDA)
+
+    device = torch.device('cuda:0' if USE_CUDA else 'cpu')
+    print('학습을 진행하는 기기:', device)
